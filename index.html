@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set the Fire to the Third Bar - Para Mariana ❤️</title>
+    <style>
+        :root {
+            --fondo-base: #0a0a0a;
+            --fondo-verso: #11141a; /* Un tono azul oscuro/frío que va con Snow Patrol */
+            --fondo-coro: #4a1525;  /* Rojo fuego sutil para el clímax de la canción */
+            --acento: #ff4d6d;
+            --marco: #ffffff;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            background-color: var(--fondo-base);
+            font-family: "Courier New", Courier, monospace;
+            color: white;
+            overflow: hidden;
+            transition: background-color 0.8s ease; 
+        }
+
+        /* --- EFECTOS DE FONDO --- */
+        body.verso {
+            background-color: var(--fondo-verso);
+        }
+
+        body.explosion {
+            background-color: var(--fondo-coro);
+            animation: pulsoCoro 2.5s infinite alternate;
+        }
+
+        @keyframes pulsoCoro {
+            0% { background-color: #3b0f1c; }
+            100% { background-color: #5c1e30; }
+        }
+
+        #bienvenida {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle, #1a1c23 0%, #000 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #btn-iniciar {
+            padding: 15px 40px;
+            font-size: 1.3rem;
+            border: 2px solid var(--acento);
+            background: transparent;
+            color: var(--acento);
+            cursor: pointer;
+            font-weight: bold;
+            letter-spacing: 2px;
+            transition: 0.4s;
+        }
+
+        #btn-iniciar:hover { background: var(--acento); color: white; box-shadow: 0 0 20px var(--acento); }
+
+        .escena {
+            display: none;
+            width: 100%;
+            height: 100vh;
+        }
+
+        #carrete-creditos {
+            position: absolute;
+            width: 100%;
+            top: 40%; 
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.9s cubic-bezier(0.2, 1, 0.2, 1);
+        }
+
+        /* --- ARREGLO DE FOTOS (No se enciman, numeradas de img0 a img24) --- */
+        .foto-recuerdo {
+            width: 220px;
+            background: var(--marco);
+            padding: 8px 8px 25px 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            margin-top: 45px; 
+            margin-bottom: 45px;
+            z-index: 5;
+            flex-shrink: 0;
+            transition: transform 0.5s ease;
+        }
+
+        .foto-recuerdo img { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+        }
+
+        .f-izq { align-self: flex-start; margin-left: 5%; transform: rotate(-7deg); }
+        .f-der { align-self: flex-end; margin-right: 5%; transform: rotate(6deg); }
+        .f-centro { align-self: center; transform: rotate(-1deg); width: 250px; }
+        .encima { margin-top: -20px; margin-bottom: 40px; z-index: 10; }
+
+        .linea {
+            text-align: center;
+            width: 90%;
+            margin: 65px 0; 
+            min-height: 80px;
+            opacity: 0.12;
+            transition: all 0.7s ease;
+            z-index: 15;
+        }
+
+        .linea.activa {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .linea b {
+            font-size: 1.5rem;
+            display: block;
+            color: var(--acento);
+            text-shadow: 0 0 10px rgba(255, 77, 109, 0.4);
+            line-height: 1.3;
+        }
+
+        .linea small {
+            font-size: 1rem;
+            color: #ddd;
+            display: block;
+            margin-top: 10px;
+        }
+
+        @media (min-width: 768px) {
+            .foto-recuerdo { width: 300px; }
+            .f-centro { width: 380px; }
+            .linea b { font-size: 2.6rem; }
+            .linea small { font-size: 1.3rem; }
+            .f-izq { margin-left: 18%; }
+            .f-der { margin-right: 18%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bienvenida">
+        <h2 style="margin-bottom: 30px; font-size: 1.2rem; padding: 0 10px; line-height: 1.6;">
+            Así se escucha cuando te extraño. Estemos a la distancia que estemos, cada línea del mapa nos lleva al mismo lugar: nosotros. ¡Súbe el volumen y el brillo al maxímo! ❤️
+        </h2>
+        <button id="btn-iniciar" onclick="comenzar()">REPRODUCIR 🎵</button>
+    </div>
+
+    <div class="escena" id="main">
+        <div id="carrete-creditos">
+            <!-- l-0: TÍTULO SOLICITADO EN TIEMPO 0:00 -->
+            <div class="linea" id="l-0"><b>❤️ Set the Fire to the Third Bar ❤️</b><small>Snow Patrol ft. Martha Wainwright</small></div>
+            
+            <!-- VERSO 1 -->
+            <div class="linea" id="l-1"><b>I find the map and draw a straight line</b><small>Encuentro el mapa y dibujo una linea</small></div>
+            <div class="foto-recuerdo f-izq encima"><img src="img0.jpg"></div>
+            
+            <div class="linea" id="l-2"><b>Over rivers, farms and state lines</b><small>Sobre ríos, granjas y fronteras</small></div>
+            <div class="foto-recuerdo f-der encima"><img src="img1.jpg"></div>
+            
+            <div class="linea" id="l-3"><b>The distance from "A" to where you'd "B"</b><small>La distancia desde el punto "A" hasta donde tú estariás</small></div>
+            <div class="foto-recuerdo f-centro encima"><img src="img2.jpg"></div>
+            
+            <div class="linea" id="l-4"><b>It's only finger lengths that I see</b><small>Son solo medidas de dedos lo que veo</small></div>
+            <div class="foto-recuerdo f-izq encima"><img src="img3.jpg"></div>
+            
+            <div class="linea" id="l-5"><b>I touch the place</b><small>Toco el lugar</small></div>
+            <div class="foto-recuerdo f-der encima"><img src="img4.jpg"></div>
+
+            <div class="linea" id="l-6"><b>Where I'd find your face</b><small>Donde encontraría tu rostro</small></div>
+            <div class="foto-recuerdo f-centro encima"><img src="img5.jpg"></div>
+            
+            <div class="linea" id="l-7"><b>My fingers in creases</b><small>Mis dedos en los pliegues</small></div>
+            <div class="foto-recuerdo f-izq encima"><img src="img6.jpg"></div>
+            
+            <div class="linea" id="l-8"><b>Of distant dark places</b><small>De distantes sitios oscuros</small></div>
+            <div class="foto-recuerdo f-der encima"><img src="img7.jpg"></div>
+            
+            <!-- VERSO 2 -->
+            <div class="linea" id="l-9"><b>I hang my coat up in the first bar</b><small>Cuelgo mi abrigo en el primer bar</small></div>
+            <div class="foto-recuerdo f-centro encima"><img src="img8.jpg"></div>
+            
+            <div class="linea" id="l-10"><b>There is no peace that I've found so far</b><small>No hay paz que haya encontrado hasta ahora</small></div>
+            <div class="foto-recuerdo f-izq encima"><img src="img9.jpg"></div>
+            
+            <div class="linea" id="l-11"><b>The laughter penetrates my silence</b><small>Las risas penetran en mi silencio</small></div>
+            <div class="foto-recuerdo f-der encima"><img src="img10.jpg"></div>
+
+            <div class="linea" id="l-12"><b>As drunken men find flaws in science</b><small>Como borrachos encontrando errores en la ciencia</small></div>
+            <div class="foto-recuerdo f-centro encima"><img src="img11.jpg"></div>
+            
+            <div class="linea" id="l-13"><b>Their words mostly noises...</b><small>Sus palabras no son más que ruidos...</small></div>
+            <div class="foto-recuerdo f-izq encima"><img src="img12.jpg"></div>
+            
+            <div class="linea" id="l-14"><b>Ghosts with just voices...</b><small>Solo fantasmas con voces...</small></div>
+            <div class="foto-recuerdo f-der encima"><img src="img13.jpg"></div>
+            
+            <div class="linea" id="l-15"><b>Your words in my memory</b><small>Tus palabras en mi memoria</small></div>
+            <div class="foto-recuerdo f-centro encima"><img src="img14.jpg"></div>
+            
+            <div class="linea" id="l-16"><b>Are like music to me</b><small>Son como música para mí</small></div>
+            <div class="foto-recuerdo f-izq encima"><img src="img15.jpg"></div>
+
+            <!-- PRIMER CORO -->
+            <div class="linea" id="l-17"><b>And miles from where you are</b><small>Y a millas de donde estás</small></div>
+            <div class="foto-recuerdo f-der encima"><img src="img16.jpg"></div>
+            
+            <div class="linea" id="l-18"><b>I lay down on the cold ground and I...</b><small>Me acuesto en el suelo frío y yo...</small></div>
+            <div class="foto-recuerdo f-centro encima"><img src="img17.jpg"></div>
+            
+            <div class="linea" id="l-19"><b>I pray that something picks me up</b><small>Ruego para que algo me levante</small></div>
+            <div class="foto-recuerdo f-izq encima"><img src="img18.jpg"></div>
+            
+            <div class="linea" id="l-20"><b>And sets me down in your warm arms...</b><small>Y me lleve a tus cálidos brazos...</small></div>
+            <div class="foto-recuerdo f-der encima"><img src="img19.jpg"></div>
+            
+            <!-- VERSO 3 -->
+            <div class="linea" id="l-21"><b>After I have traveled so far</b><small>Después de haber viajado tanto</small></div>
+            <div class="foto-recuerdo f-centro encima"><img src="img20.jpg"></div>
+            
+            <div class="linea" id="l-22"><b>We'd set the fire to the third bar</b><small>Prenderiamos fuego a la tercera barra de la estufa</small></div>
+            <div class="foto-recuerdo f-izq encima"><img src="img21.jpg"></div>
+
+            <div class="linea" id="l-23"><b>We'd share each other like an island</b><small>Nos compartiríamos el uno al otro como una isla</small></div>
+            <div class="foto-recuerdo f-der encima"><img src="img22.jpg"></div>
+            
+            <div class="linea" id="l-24"><b>Until exhausted close our eyelids</b><small>Hasta que agotados cerremos nuestros párpados</small></div>
+            <div class="foto-recuerdo f-centro encima"><img src="img23.jpg"></div>
+   
+            <div class="linea" id="l-25"><b>And dreaming pick up from...</b><small>Y soñando, levantarnos del...</small></div>
+            <div class="foto-recuerdo f-izq encima"><img src="img24.jpg"></div>
+
+            <div class="linea" id="l-26"><b>The last place we left off</b><small>Ultimo lugar que dejamos</small></div>
+            
+            <div class="linea" id="l-27"><b>Your soft skin is weeping</b><small>Tu suave piel está llorando</small></div>
+            
+            <div class="linea" id="l-28"><b>A joy you can't keep in</b><small>Una alegría que no puedes contener</small></div>
+            
+            <!-- SEGUNDO CORO (CLÍMAX) -->
+            <div class="linea" id="l-29"><b>And miles from where you are</b><small>Y a millas de donde estás</small></div>
+            
+            <div class="linea" id="l-30"><b>I lay down on the cold ground and I...</b><small>Me acuesto en el suelo frío y yo...</small></div>
+            
+            <div class="linea" id="l-31"><b>I pray that something picks me up</b><small>Ruego para que algo me levante</small></div>
+            
+            <div class="linea" id="l-32"><b>And sets me down in your warm arms...</b><small>Y me lleve a tus cálidos brazos...</small></div>
+            
+            <!-- INSTRUMENTAL INTERLUDIO -->
+            <div class="linea" id="l-33"><b>🎶 Instrumental 🎶</b><small></small></div>
+            
+            <!-- TERCER CORO (FINAL ANIMADO) -->
+            <div class="linea" id="l-34"><b>And miles from where you are</b><small>Y a millas de donde estás</small></div>
+            
+            <div class="linea" id="l-35"><b>I lay down on the cold ground and I...</b><small>Me acuesto en el suelo frío y yo...</small></div>
+            
+            <div class="linea" id="l-36"><b>I pray that something picks me up</b><small>Ruego para que algo me levante</small></div>
+            
+            <div class="linea" id="l-37"><b>And sets me down in your warm arms...</b><small>Y me lleve a tus cálidos brazos...</small></div>
+            
+            <div class="linea" id="l-38"><b>❤️ Tus palabras siempre serán mi música ❤️<br>❤️ favorita. ❤️</b><small>Uniendo Cada Linea Del Mapa Hasta Encontrarnos</small></div>
+
+            <div style="height: 350px;"></div> 
+        </div>
+    </div>
+
+    <audio id="track" src="musica.mp3"></audio>
+
+    <script>
+        // --- BASE DE DATOS ULTRA PRECISA: 39 ELEMENTOS EXACTOS (l-0 a l-38) ---
+        const DATA = [
+            { s: 0.00,   f: 'v' },  // l-0: Título inicial
+            { s: 11.06,  f: 'v' },  // l-1: I find the map...
+            { s: 16.15,  f: 'v' },  // l-2: Over rivers...
+            { s: 21.10,  f: 'v' },  // l-3: The distance from A...
+            { s: 26.09,  f: 'v' },  // l-4: It's only finger lengths...
+            { s: 31.14,  f: 'v' },  // l-5: I touch the place
+            { s: 36.08,  f: 'v' },  // l-6: Where I'd find your face
+            { s: 41.06,  f: 'v' },  // l-7: My fingers in creases
+            { s: 46.08,  f: 'v' },  // l-8: Of distant dark places
+            
+            // --- VERSO 2 ---
+            { s: 51.08,  f: 'v' },  // l-9: I hang my coat...
+            { s: 56.08,  f: 'v' },  // l-10: There is no peace...
+            { s: 61.09,  f: 'v' },  // l-11: The laughter penetrates...
+            { s: 66.09,  f: 'v' },  // l-12: As drunken men...
+            { s: 71.10,  f: 'v' },  // l-13: Their words mostly noises
+            { s: 76.13,  f: 'v' },  // l-14: Ghosts with just voices
+            { s: 81.07,  f: 'v' },  // l-15: Your words in my memory
+            { s: 86.06,  f: 'v' },  // l-16: Are like music to me
+            
+            // --- PRIMER CORO ---
+            { s: 91.08,  f: 'e' },  // l-17: And miles from where you are
+            { s: 94.17,  f: 'e' },  // l-18: I lay down on the cold ground...
+            { s: 101.04, f: 'e' },  // l-19: I pray that something...
+            { s: 104.18, f: 'e' },  // l-20: And sets me down...
+            
+            // --- VERSO 3 ---
+            { s: 114.00, f: 'v' },  // l-21: After I have traveled so far
+            { s: 118.21, f: 'v' },  // l-22: We'd set the fire...
+            { s: 123.22, f: 'v' },  // l-23: We'd share each other...
+            { s: 128.22, f: 'v' },  // l-24: Until exhausted...
+            { s: 133.22, f: 'v' },  // l-25: And dreaming pick up from
+            { s: 138.22, f: 'v' },  // l-26: The last place...
+            { s: 143.20, f: 'v' },  // l-27: Your soft skin is weeping
+            { s: 148.22, f: 'v' },  // l-28: A joy you can't keep in
+            
+            // --- SEGUNDO CORO ---
+            { s: 153.23, f: 'e' },  // l-29: And miles from where you are
+            { s: 157.04, f: 'e' },  // l-30: I lay down on the cold ground...
+            { s: 163.20, f: 'e' },  // l-31: I pray that something...
+            { s: 167.08, f: 'e' },  // l-32: And sets me down...
+            
+            // --- INTERLUDIO ---
+            { s: 172.00, f: 'v' },  // l-33: Instrumental
+            
+            // --- TERCER CORO ---
+            { s: 174.01, f: 'e' },  // l-34: And miles from where you are
+            { s: 177.07, f: 'e' },  // l-35: I lay down on the cold ground...
+            { s: 183.19, f: 'e' },  // l-36: I pray that something...
+            { s: 187.08, f: 'e' },  // l-37: And sets me down...
+            { s: 194.06, f: 'e' }   // l-38: Cierre/Dedicatoria final
+        ];
+
+        function comenzar() {
+            document.getElementById('bienvenida').style.display = 'none';
+            document.getElementById('main').style.display = 'block';
+            
+            const audio = document.getElementById('track');
+            const carrete = document.getElementById('carrete-creditos');
+            const cuerpo = document.body;
+            audio.play();
+
+            audio.ontimeupdate = () => {
+                const ahora = audio.currentTime;
+                
+                DATA.forEach((item, index) => {
+                    if (ahora >= item.s) {
+                        const el = document.getElementById(`l-${index}`);
+                        if (el && !el.classList.contains('activa')) {
+                            document.querySelectorAll('.linea').forEach(l => l.classList.remove('activa'));
+                            el.classList.add('activa');
+                            
+                            if (item.f === 'e') {
+                                cuerpo.className = 'explosion';
+                            } else {
+                                cuerpo.className = 'verso';
+                            }
+                            
+                            const offset = el.offsetTop;
+                            carrete.style.transform = `translateY(-${offset}px)`;
+                        }
+                    }
+                });
+            };
+        }
+    </script>
+</body>
+</html>
